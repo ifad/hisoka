@@ -30,9 +30,8 @@ module Hisoka
       $stdout.puts *args
     end
   end
-  module SpyStuff
-    extend ActiveSupport::Concern
 
+  module SpyStuff
     def initialize(name, logger=nil)
       @name = name
       @logger ||= (Rails.logger rescue StdoutLogger.new)

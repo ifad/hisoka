@@ -8,7 +8,7 @@ describe Hisoka::Routable do
       if value.is_a?(Regexp)
         s =~ value
       else
-        s[value].present?
+        !s[value].nil?
       end
     }
 
