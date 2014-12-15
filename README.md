@@ -8,6 +8,20 @@ in a Rails* app.
 【人に知られないように隠れて】secretly, in secret;
 ```
 
+#What is it for?
+Think of this as a debug or analysis tool.
+
+The design principle is that you should be able to drop instances into a Rails app
+and find you are quite likely to record everything that happens and still
+render a page without a 500.
+
+E.g. they secretly pretend to be ActiveRecord objects, iterable collections,
+objects you can put into and retrieve from hashes/arrays or hashes of arrays of
+hashes and still undetectably to the application like the real thing.
+
+This will help get a rough overview of how an object is used, but isn't guaranteed
+to cover every code path or use case.
+
 Easily seeing what methods are called on an object
 during normal usage means you can swap it out for an equivalent.
 
