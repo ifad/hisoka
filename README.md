@@ -1,31 +1,41 @@
 # Hisoka
 
-TODO: Write a gem description
+"Hisoka ni" means in secret. It is a simple spy library that can be used
+in a Rails* app.
 
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'hisoka'
+```
+ひそかに【密かに】
+【人に知られないように隠れて】secretly, in secret;
 ```
 
-And then execute:
+Easily seeing what methods are called on an object
+during normal usage means you can swap it out for an equivalent.
 
-    $ bundle
+This project was created because of the need to replace some
+calls to a database with an external service and not port across
+unnecessary methods.
 
-Or install it yourself as:
+#Usage
 
-    $ gem install hisoka
+##Iterable spies
+```ruby
+#old code
+@users = User.all
 
-## Usage
+#replaced with
+@users = Hisoka::Iterable.new("all-users")
+```
 
-TODO: Write usage instructions here
+#log output example
 
-## Contributing
+```log
+```
 
-1. Fork it ( https://github.com/[my-github-username]/hisoka/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+#Note
+It doesn't need to be Rails specific, but has been abstracted out of
+being used in 2 Rails apps. Pull requests welcome to make it work
+in a more generic way
+
+## Installation, contributions etc
+All the usual bundler gem/github PR guidelines.
+
