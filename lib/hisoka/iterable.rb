@@ -25,12 +25,12 @@ module Hisoka
     def each(&block)
       called_method(:each)
 
-      result = called_method("block-inside-each")
+      result = @_internal_spy.called_method("block-inside-each")
       block.call(result)
     end
 
     def to_s
-      "#{self.class.name} `#{@name}': #{@parent_method}"
+      "#{self.class.name} `#{@_internal_spy.name}': #{@_internal_spy.parent_method}"
     end
   end
 end
