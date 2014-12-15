@@ -20,15 +20,23 @@ unnecessary methods.
 ##Iterable spies
 ```ruby
 #old code
-@users = User.all
+@projects = Project.all
 
 #replaced with
-@users = Hisoka::Iterable.new("all-users")
+@projects = Hisoka::Iterable.new("all-projects")
 ```
 
 #log output example
 
 ```log
+Hisoka: all-projects  (called from app/controllers/projects_controller.rb:19:in `index' ) .select
+Hisoka: all-projects  (called from app/controllers/projects_controller.rb:22:in `index' ) select.each
+Hisoka: all-projects  (called from app/controllers/projects_controller.rb:22:in `index' ) select.block-inside-each
+Hisoka: all-projects  (called from app/controllers/projects_controller.rb:23:in `index' ) select.block-inside-each.country
+Hisoka: all-projects  (called from app/controllers/projects_controller.rb:23:in `index' ) select.block-inside-each.country.region
+Hisoka: all-projects  (called from app/controllers/projects_controller.rb:24:in `index' ) select.block-inside-each.country
+Hisoka: all-projects  (called from app/controllers/projects_controller.rb:24:in `index' ) select.block-inside-each.country.region
+Hisoka: all-projects  (called from app/controllers/projects_controller.rb:24:in `index' ) select.block-inside-each.country`)
 ```
 
 #Note
