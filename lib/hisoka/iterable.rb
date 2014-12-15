@@ -30,7 +30,7 @@ module Hisoka
     end
 
     def to_s
-      "IterableSpy `#{@name}': #{@parent_method}"
+      "#{self.class.name} `#{@name}': #{@parent_method}"
     end
   end
 end

@@ -72,7 +72,7 @@ module Hisoka
     end
 
     def to_s
-      "Spy `#{@name}': #{@parent_method}"
+      "#{self.class.name} `#{@name}'"
     end
   end
 end

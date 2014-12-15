@@ -21,6 +21,23 @@ describe Hisoka::Routable do
     hisoka.doesnt_matter
   end
 
+  it "is routable" do
+    expect(hisoka.to_param).to eq "some-id"
+  end
+
+  it "is convertible to json" do
+    expect_log "each"
+    expect_log "block-inside-each"
+
+    json = {"spy_json" => "Hisoka::Routable `my spy': block-inside-each"}
+
+    hisoka.each do |h|
+      expect(JSON.parse(h.to_json)).to eq json
+    end
+  end
+
+
+
   it "logs messages called" do
     expect_log /this_gets_called/
 
