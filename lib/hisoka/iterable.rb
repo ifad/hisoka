@@ -7,7 +7,7 @@ module Hisoka
     end
 
     def as_json(*args)
-      {spy_json: to_s}.to_json
+      {:spy_json => to_s}.to_json
     end
 
     def to_json(*args)
