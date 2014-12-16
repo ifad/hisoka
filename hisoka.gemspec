@@ -18,8 +18,15 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "activesupport", ">= 2.0.2"
-  spec.add_development_dependency "debugger"
+
+  if RUBY_VERSION == "1.8.7"
+    spec.add_dependency "activesupport", "~> 2.0.2"
+    spec.add_development_dependency "ruby-debug"
+  else
+    spec.add_dependency "activesupport", ">= 2.0.2"
+    spec.add_development_dependency "debugger"
+  end
+
   spec.add_development_dependency "json"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "bundler", "~> 1.7"
