@@ -9,11 +9,12 @@ in a Rails* app.
 ```
 
 #What is it for?
-Think of this as a debug or analysis tool.
+Think of this as a debug or analysis tool for recording messages sent to
 
 The design principle is that you should be able to drop instances into a Rails app
-and find you are quite likely to record everything that happens and still
-render a page without a 500.
+and find you are quite likely to record everything that happens to them, and still
+render a page without a 500. They can be placed in views, forms, hashes, arrays
+iterated over, and pass through the app invisibly and unscathed.
 
 E.g. they secretly pretend to be ActiveRecord objects, iterable collections,
 objects you can put into and retrieve from hashes/arrays or hashes of arrays of
@@ -40,18 +41,27 @@ unnecessary methods.
 @projects = Hisoka::Iterable.new("all-projects")
 ```
 
-#log output example
+#Log output example
 
 ```log
-Hisoka: all-projects  (called from app/controllers/projects_controller.rb:19:in `index' ) .select
-Hisoka: all-projects  (called from app/controllers/projects_controller.rb:22:in `index' ) select.each
-Hisoka: all-projects  (called from app/controllers/projects_controller.rb:22:in `index' ) select.block-inside-each
-Hisoka: all-projects  (called from app/controllers/projects_controller.rb:23:in `index' ) select.block-inside-each.country
-Hisoka: all-projects  (called from app/controllers/projects_controller.rb:23:in `index' ) select.block-inside-each.country.region
-Hisoka: all-projects  (called from app/controllers/projects_controller.rb:24:in `index' ) select.block-inside-each.country
-Hisoka: all-projects  (called from app/controllers/projects_controller.rb:24:in `index' ) select.block-inside-each.country.region
-Hisoka: all-projects  (called from app/controllers/projects_controller.rb:24:in `index' ) select.block-inside-each.country`)
+Hisoka: all-projects  (app/controllers/projects_controller.rb:19:in `index' ) .select
+Hisoka: all-projects  (app/controllers/projects_controller.rb:22:in `index' ) select.each
+Hisoka: all-projects  (app/controllers/projects_controller.rb:22:in `index' ) select.block-inside-each
+Hisoka: all-projects  (app/controllers/projects_controller.rb:23:in `index' ) select.block-inside-each.country
+Hisoka: all-projects  (app/controllers/projects_controller.rb:23:in `index' ) select.block-inside-each.country.region
+Hisoka: all-projects  (app/controllers/projects_controller.rb:24:in `index' ) select.block-inside-each.country
+Hisoka: all-projects  (app/controllers/projects_controller.rb:24:in `index' ) select.block-inside-each.country.region
+Hisoka: all-projects  (app/controllers/projects_controller.rb:24:in `index' ) select.block-inside-each.country`)
 ```
+
+#API
+The classes are defined in a hierarchy with each one adding more functionality (and cluttering with more methods)
+
+* `Hisoka::Basic` extends BasicObject and is hence as light weight as possible
+* `Hisoka::Tryable` extends Object so works with `:try`
+* `Hisoka::Iterable` can be iterated over
+* `Hisoka::Routable` can be used in forms and link_to helpers
+
 
 #Note
 It doesn't need to be Rails specific, but has been abstracted out of
