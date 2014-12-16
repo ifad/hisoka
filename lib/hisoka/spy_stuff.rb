@@ -7,7 +7,7 @@ module Hisoka
     end
 
     # we include the absolute minimum in objects to reduce
-    # their surface area and compose of a HisakoInternalSpy instance
+    # their surface area and compose of an InternalSpy instance
     def initialize(name, logger=nil, parent_method=nil, args=nil)
       @_internal_spy = InternalSpy.new(self, name, logger, parent_method, args)
     end

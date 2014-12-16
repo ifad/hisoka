@@ -2,7 +2,7 @@ module Hisoka
   class Iterable < Tryable
     Enumerable.instance_methods.each do |m|
       define_method(m) do |*args|
-        called_method(m, *args)
+        @_internal_spy.called_method(m, *args)
       end
     end
 

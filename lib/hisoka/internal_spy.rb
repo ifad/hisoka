@@ -40,13 +40,17 @@ module Hisoka
 
     def called_method(method_name, *args)
       args = format_args(args)
-      non_hisoka_stack = caller[0..last_hisoka_stack_index(caller)]
+      unformatted_stack = caller()
 
-      msg = format_log_message(non_hisoka_stack)
+      msg = format_log_message(non_hisoka_stack(unformatted_stack))
 
       @logger.info "#{msg} #{method_chain_from(method_name)} #{args}"
 
       new_child_node(method_name, args)
+    end
+
+    def non_hisoka_stack(unformatted)
+      unformatted[last_hisoka_stack_index(unformatted)+1..-1]
     end
 
     def method_chain_from(m)
@@ -73,9 +77,10 @@ module Hisoka
 
     #TODO make stack trace tidying configurable
     def format_stack_trace(stack)
-      call_info = stack[2..2][0].to_s.gsub(/:in `.*haml[\d|_]*'$/, "")
-      call_info.gsub!(/#{Rails.root}/, "") rescue nil
+      call_info = stack[0..0][0].to_s.gsub(/:in `.*haml[\d|_]*'$/, "")
+      call_info.gsub!(/#{Rails.root}\/?/, "") rescue nil
       call_info.gsub! %r{/.*/lib/ruby/gems/1.9.1/gems}, "gems"
+      call_info.gsub! %r{/.*/lib/ruby/gems/1.8/bundler/gems}, "gems"
       call_info
     end
 
