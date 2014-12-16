@@ -78,8 +78,10 @@ module Hisoka
     #TODO make stack trace tidying configurable
     def format_stack_trace(stack)
       call_info = stack[0..0][0].to_s.gsub(/:in `.*haml[\d|_]*'$/, "")
-      call_info.gsub!(/:in `.*erb[\d|_]*'`$/, "")
+      call_info.gsub!(/:in `.*erb.*erb'`?$/, "")
       call_info.gsub!(/#{Rails.root}\/?/, "") rescue nil
+      call_info.gsub!(/#{RAILS_ROOT}\/?/, "") rescue nil
+      call_info.gsub!(%r{/?app/}, "")
 
       call_info.gsub! %r{/.*/lib/ruby/gems/1.9.1/gems}, "gems"
       call_info.gsub! %r{/.*/lib/ruby/gems/1.8/bundler/gems}, "gems"

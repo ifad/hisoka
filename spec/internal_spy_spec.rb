@@ -17,7 +17,13 @@ describe Hisoka::InternalSpy do
     ]
   end
   let(:erb) do
-     ["some-rails-app-path/app/views/projects/index.html.erb:34:in `_run_erb_47app47views47projects47index46html46erb'`"]
+     [
+       "some-rails-app-path/app/views/projects/index.html.erb:34:in `_run_erb_47app47views47projects47index46html46erb'`",
+     ]
+  end
+
+  let(:erb2) do
+    ["views/projects/index.html.erb:34:in `_run_erb_4747views47projects47index46html46erb'"]
   end
 
   describe "#non_hisoka_stack" do
@@ -39,11 +45,12 @@ describe Hisoka::InternalSpy do
     end
 
     it do
-      expect(spy.format_stack_trace(non_hisoka)).to eq "app/controllers/projects_controller.rb:18:in `index'"
+      expect(spy.format_stack_trace(non_hisoka)).to eq "controllers/projects_controller.rb:18:in `index'"
     end
 
     it do
-      expect(spy.format_stack_trace(erb)).to eq "app/views/projects/index.html.erb:34"
+      expect(spy.format_stack_trace(erb)).to eq "views/projects/index.html.erb:34"
+      expect(spy.format_stack_trace(erb2)).to eq "views/projects/index.html.erb:34"
     end
   end
 end
