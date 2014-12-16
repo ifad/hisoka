@@ -81,10 +81,15 @@ module Hisoka
 
 
     def last_hisoka_stack_index(stack)
-      stack.map.
-        with_index{|c, i| stack.grep(/hisoka/).  last == c ? i : nil}.
-        compact.
-        last
+      result = []
+
+      stack.each.with_index do |c, i|
+        if stack.grep(/hisoka/).  last == c
+          result << i
+        end
+      end
+
+      result.last
     end
 
     def to_s

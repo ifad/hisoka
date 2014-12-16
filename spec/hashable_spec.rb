@@ -1,7 +1,7 @@
 describe "Hisoka::Hashable" do
   before do
     rails = stub_const "Rails", double("Rails constant")
-    expect(rails).to receive(:logger).at_least(1).and_return double("logger", info: nil)
+    expect(rails).to receive(:logger).at_least(1).and_return double("logger", :info => nil)
     expect(rails).to receive(:root).at_least(1).and_return File.expand_path(File.join(__FILE__), "..")
   end
 
