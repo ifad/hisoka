@@ -1,5 +1,3 @@
-require "./lib/hisoka"
-
 describe Hisoka::Routable do
   let(:hisoka) { Hisoka::Routable.new "my spy"}
 
@@ -24,6 +22,7 @@ describe Hisoka::Routable do
   it "is routable" do
     expect(hisoka.to_param).to eq "some-id"
   end
+
 
   it "is convertible to json" do
     expect_log "each"
