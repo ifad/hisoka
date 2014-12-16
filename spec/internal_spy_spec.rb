@@ -16,6 +16,9 @@ describe Hisoka::InternalSpy do
       ".rbenv/versions/some-ruby-version/some-rails-trace/to_us.rb:789:in `stacktrace'"
     ]
   end
+  let(:erb) do
+     ["some-rails-app-path/app/views/projects/index.html.erb:34:in `_run_erb_47app47views47projects47index46html46erb'`"]
+  end
 
   describe "#non_hisoka_stack" do
     before do
@@ -37,6 +40,10 @@ describe Hisoka::InternalSpy do
 
     it do
       expect(spy.format_stack_trace(non_hisoka)).to eq "app/controllers/projects_controller.rb:18:in `index'"
+    end
+
+    it do
+      expect(spy.format_stack_trace(erb)).to eq "app/views/projects/index.html.erb:34"
     end
   end
 end
